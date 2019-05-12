@@ -16,9 +16,9 @@ ActiveRecord::Schema.define(version: 2019_05_09_143016) do
   enable_extension "plpgsql"
 
   create_table "requests", force: :cascade do |t|
-    t.string "original_urk"
+    t.string "original_url"
     t.string "query_params"
-    t.string "errors"
+    t.string "req_errors"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

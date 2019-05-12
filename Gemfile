@@ -34,7 +34,6 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'pg'
-gem 'rails_param'
 
 
 #proxy service
