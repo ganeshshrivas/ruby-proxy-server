@@ -89,14 +89,23 @@ class ProxyToOther < Rack::Proxy
       params = CGI::parse env["QUERY_STRING"]
       req_errors = validate_params_and_get_errors(params)
       unless(params["proxy"].empty?)
+        logger = Rails.logger
         url = env["ORIGINAL_FULLPATH"]
         query_params = params
-        req_errors = req_errors
-        Request.create(original_url: url, query_params: query_params, req_errors: req_errors)
+        req_errors = req_errors.empty? ? "" : req_errors
+        logger.info "request params--------#{params}"
+        logger.info "request errors--------#{req_errors}"
+        begin
+          req = Request.new(original_url: url, query_params: query_params, req_errors: req_errors)
+          req.save!
+        rescue StandardError => e
+          logger.error e.message
+          logger.error e.backtrace.join("\n")
+        end
       end
       [target_response.code, headers, body]
   end
-  
+
   def validate_params_and_get_errors(params)
     errors = {}
     if params["type"].empty? or params["app_id"].empty?
