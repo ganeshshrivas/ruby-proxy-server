@@ -22,3 +22,9 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+* Guidence
+
+* Start rails server locally and visit localhost:3000/requests
+
+* See development logs and database to check store request traffic in db
